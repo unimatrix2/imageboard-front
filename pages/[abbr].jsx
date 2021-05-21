@@ -12,7 +12,8 @@ import useContainerSize from "../hooks/containerSize";
 import PersistentDrawer from "../components/PersistentDrawer";
 import { appTheme } from "../utils/theme";
 import { calcAppBarSize, handleOverflow } from "../utils/cssUtils";
-
+// Needs change. Prop getting should happen at each request,
+// fetching the board data, posts and replies
 export const getServerSideProps = (context) => {
   return {
     props: {
