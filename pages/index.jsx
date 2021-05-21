@@ -42,7 +42,7 @@ export default function Home({data}) {
 
 	useEffect(() => {
     // Will validate the token and store a new one if there is a valid token
-        axios.get(`http://localhost:5000/api/token/verify`, { withCredentials: true })
+        axios.get(process.env.NEXT_PUBLIC_APP_TOKEN, { withCredentials: true })
             .then(data => {
                 setUser(data.data.password
 					? { nick: data.data.nick, password: data.data.password }
