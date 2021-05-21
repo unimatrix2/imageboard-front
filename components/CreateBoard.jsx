@@ -147,7 +147,7 @@ export default function CreateBoard({ classes, ucs }) {
 					control={
 						<Checkbox
 							name="sfw"
-							error={formik.touched.sfw && Boolean(formik.errors.sfw)}
+							error={formik.touched.sfw && formik.errors.sfw}
 							checked={formik.values.sfw}
 							onChange={formik.handleChange}
 							color="primary"
