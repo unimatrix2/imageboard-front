@@ -67,7 +67,7 @@ export default function CreateBoard({ classes, ucs }) {
 		},
 		validationSchema: boardSchema,
 		onSubmit: async (values, helpers) => {
-			const data = await axios.post(process.env.NEXT_PUBLIC_APP_BOARD_CREATE, values, { withCredentials: true });
+			const data = await axios.post(process.env.NEXT_PUBLIC_BOARD_CREATE, values, { withCredentials: true });
             router.push('/');
 		}
 	});
