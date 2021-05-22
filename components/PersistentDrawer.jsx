@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from '../context/Context';
 import {
     Drawer,
@@ -25,12 +25,25 @@ import {
 import clsx from "clsx";
 import Link from 'next/link';
 import { evalDrawerWidth } from '../utils/cssUtils';
+import axios from 'axios';
 
 import { mock } from '../mockedData';
 
 export default function PersistentDrawer() {
 
-    const { state } = useContext(Context);
+    const { state, dispatch } = useContext(Context);
+
+    useEffect(() => {
+        axios.get(process.env.NEXT_PUBLIC_BOARD_LIST, { withCredentials: true })
+			.then(data => {
+                console.log(data.data)
+				dispatch({
+					type: 'PROVIDE-LIST',
+					payload: {...data.data}
+				});
+			})
+			.catch(err => console.log(err));
+    }, []);
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -157,20 +170,20 @@ export default function PersistentDrawer() {
                 </div>
                 <Divider />
                 <List>
-				{mock.map(elem => (
+				{state.list ? state.list.map(board => (
                         <Link
-                            href={elem.path}
+                            href={`/${board.abbr}`}
                             onClick={handleDrawerClose}
-                            key={elem.path}
+                            key={board.abbr}
                         >
                         <ListItem button>
                             <ListItemIcon className={classes.drawerListText}>
-                                {elem.path}
+                                {board.abbr}
                             </ListItemIcon>
-                            {/*drawerWidth > 100 ?*/ <ListItemText primary={elem.board} />}
+                            {/*drawerWidth > 100 ?*/} <ListItemText primary={board.title} />
                         </ListItem>
                         </Link>
-                    ))}
+                    )) : ''}
                 </List>
                 <Divider />
                 {/* <List>
