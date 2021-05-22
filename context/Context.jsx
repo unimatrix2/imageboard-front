@@ -1,6 +1,7 @@
 import { useReducer, createContext } from "react";
 import getWindow from "./reducers/window";
 import getUser from "./reducers/users";
+import getBoardList from "./reducers/boardList";
 
 const initialState = {
   deviceWindow: {},
@@ -20,7 +21,7 @@ const combineReducers =
 
 const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(
-    combineReducers(getWindow, getUser),
+    combineReducers(getWindow, getUser, getBoardList),
     initialState
   );
   const value = { state, dispatch };
